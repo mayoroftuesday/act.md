@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type='text/javascript' src='knockout-3.3.0.js'></script>
+        <style>
+            h1 { margin:5px 0px; }
+            table { border-collapse: collapse; }
+            th { text-align: left; }
+            tr { border-bottom: 1px solid #ccc; }
+            #nav { background-color: #eee; border-top: 1px solid #aaa;}
+            #nav a { display: inline-block; background-color; #ddd; padding: 10px; }
+            #nav a.selected { background-color: #ccc; }
+            #nav a:hover { background-color: #bbb; }
+            #actions { margin: 10px 0px; }
+            #header { margin-bottom: 10px; }
+            #filter { background-color: #ccc; padding: 4px; }
+            .taskNotification { display: inline-block; background-color: red; border-radius: 8px; padding: 0px 4px; color: white; font-weight: bold; }
+            
+            .overdue { background-color: #ff9999; }
+            .due { background-color: #ffffaa; }
+        </style>
+    </head>
+    
+    <body>
+        <div id="header">
+            <h1>Hi, Narath.</h1>
+            <div>
+                <a href="#">Integrated Practice of the Future</a> | <a href="#">View Profile</a> | <a href="#">Edit Profile</a>
+            </div>
+        </div>
+        
+        <div id="nav">
+            <a href="#">Acts & Updates</a>
+            <a class="selected" href="patients.html">Patients</a>
+            <a href="#">Providers</a>
+            <a href="tasks.html">Tasks</a>
+        </div>
+        <div id="filter">
+            <input type="text"  placeholder="Search for patients..." />
+            <input type="checkbox" id="myPatients" data-bind="checked: showMyPatients"><label for="myPatients">Show only my patients</label>
+            <input type="checkbox" id="activePatients" data-bind="checked: showActive"><label for="activePatients" >Show only active patients</label>
+            <input type="checkbox" id="urgentTasks" data-bind="checked: showUrgentTasks"><label for="urgentTasks" >Due/overdue tasks</label>
+            <div style="float:right;">
+                <button>Save Filter</button>
+                <select>
+                    <option>Load filter...</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="actions">
+            <button>New patient</button>
+            <button>Add patient</button>
+        </div>
+    
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th style="width:15px;"><input type="checkbox" /></th>
+                    <th style="width:50px;"></th>
+                    <th style="width:50%">Name</th>
+                    <th>Next Task Due</th>
+                    <th>DOB</th>
+                    <th>City/State</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: filteredPeople">
+                <tr data-bind="if: ($parent.showActive() && tasks) || !$parent.showActive(), attr: { class: urgency }">
+                    <td><input type="checkbox" /></td>
+                    <td><img src="noimg.png" style="width:40px; height: 40px;" />
+                    <td>
+                        <div>
+                            <span style="font-weight: bold;" data-bind="text: lastName"></span>, <span data-bind="text: firstName"></span>
+                            <span data-bind="if: tasks">
+                                <span class="taskNotification" data-bind="text: tasks"></span>
+                            </span>
+                        </div>
+                        <div data-bind="text: logLine"></div>
+                    </td>
+                    <td data-bind="text: nextTaskDue"></td>
+                    <td data-bind="text: dateOfBirth"></td>
+                    <td data-bind="text: location"></td>
+                </tr>
+            </tbody>
+        </table>
+ 
+        <script type="text/javascript">
+            function AppViewModel() {
+                var self = this;
+                self.people = ko.observableArray([
+                    { firstName: 'Andy', lastName: 'Anderson', logLine: 'Last logged in 1 month ago', dateOfBirth: '1980-01-01', location: 'Boston, MA', tasks: 4, myPatient: true, urgency: 'overdue', nextTaskDue: '2015-01-01' },
+                    { firstName: 'Abby', lastName: 'Armstrong', logLine: 'Last logged in 6 month ago', dateOfBirth: '1990-01-01', location: 'Boston, MA', tasks: null, myPatient: false, urgency: null, nextTaskDue: null },
+                    { firstName: 'Brian', lastName: 'Brower', logLine: 'Last logged in 1 month ago', dateOfBirth: '1970-01-01', location: 'Boston, MA', tasks: 1, myPatient: false, urgency: 'due', nextTaskDue: '2015-06-02' },
+                    { firstName: 'Brian', lastName: 'Burton', logLine: 'Last logged in 6 month ago', dateOfBirth: '1980-01-01', location: 'Boston, MA', tasks: null, myPatient: false, urgency: null, nextTaskDue: null },
+                    { firstName: 'Christine', lastName: 'Connoly', logLine: 'Last logged in 5 month ago', dateOfBirth: '1992-01-01', location: 'Watertown, MA', tasks: null, myPatient: true, urgency: null, nextTaskDue: null },
+                    { firstName: 'Diana', lastName: 'Doherty', logLine: 'Last logged in 6 month ago', dateOfBirth: '1940-01-01', location: 'Hanson, MA', tasks: null, myPatient: false, urgency: null, nextTaskDue: null },
+                    { firstName: 'Dave', lastName: 'Donnely', logLine: 'Last logged in 1 month ago', dateOfBirth: '1960-01-01', location: 'Andover, MA', tasks: 2, myPatient: false, urgency: null, nextTaskDue: '2015-12-31' },
+                    { firstName: 'Edie', lastName: 'Eliot', logLine: 'Last logged in 6 month ago', dateOfBirth: '1930-01-01', location: 'Watertown, MA', tasks: null, myPatient: false, urgency: null, nextTaskDue: null },
+                    { firstName: 'Frank', lastName: 'Farthington', logLine: 'Last logged in 1 month ago', dateOfBirth: '1940-01-01', location: 'Hanover, MA', tasks: null, myPatient: true, urgency: null, nextTaskDue: null },
+                    { firstName: 'Gordon', lastName: 'Gardener', logLine: 'Last logged in 6 month ago', dateOfBirth: '1940-01-01', location: 'Hanover, MA', tasks: null, myPatient: false, urgency: null, nextTaskDue: null },
+                    { firstName: 'Jack', lastName: 'Johnson', logLine: 'Not yet enrolled', dateOfBirth: '1960-01-01', location: null, tasks: null, myPatient: false, urgency: null, nextTaskDue: null }, 
+                ]);
+                self.showActive = ko.observable(false);
+                self.showMyPatients = ko.observable(false);
+                self.showUrgentTasks = ko.observable(false);
+                self.filteredPeople = ko.computed(function() {
+                    var output = [];
+                    if (self.people())
+                    {
+                        for (var i = 0; i < self.people().length; i++)
+                        {
+                            if (
+                                (!self.showActive() || (self.showActive() && self.people()[i].tasks))
+                                && 
+                                (!self.showMyPatients() || (self.showMyPatients() && self.people()[i].myPatient))
+                                &&
+                                (!self.showUrgentTasks() || (self.showUrgentTasks() && self.people()[i].urgency))
+                            )
+                            {
+                                output.push(self.people()[i]);
+                            }
+                        }
+                    }
+                    return output;
+                });
+            }
+            
+            ko.applyBindings(new AppViewModel());
+        </script>
+    
+    
+    </body>
+    
+</html>

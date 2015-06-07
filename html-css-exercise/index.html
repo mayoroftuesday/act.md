@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- required first for boostrap -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>ACT.md Wireframe</title>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="bootstrap-3.3.4-dist\css\bootstrap.min.css" >
+        <link rel="stylesheet" href="font-awesome-4.3.0\css\font-awesome.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <body>
+        <table class="conversations">
+            <caption>
+                <i class="fa fa-user"></i> <a href="#">Brady Doverspike</a>
+            </caption>
+            <tbody>
+                <tr class="conversation-title-box">
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-xs actbutton" type="button">
+                                Finish
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle actbutton" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Finishing line</a></li>
+                                <li><a href="#">Finish with style</a></li>
+                                <li><a href="#">Finnish</a></li>
+                                <li><a href="#">Finish him</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td colspan="4">
+                        <span class="conversation-title">Schedule diabetes session with Nurse Educator</span> <span class="label label-warning">Due Today</span>
+                    </td>
+                    <td style="text-align:right;">
+                        <i class="fa fa-chevron-right"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Brady Doverspike</td>
+                    <td><i class="fa fa-arrow-right"></i></td>
+                    <td>Joon Lee, RN</td>
+                    <td><span class="message">Does this need to be scheduled at the downtown medical center, or are there other locations?</span></td>
+                    <td>3:25pm</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Joon Lee, RN</td>
+                    <td><i class="fa fa-arrow-right"></i></td>
+                    <td>Brady Doverspike</td>
+                    <td><span class="message">No, all of our suburban clinics have weekly sessions. Just call the main scheduling number and they'll set it up.</span></td>
+                    <td>3:37pm</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Brady Doverspike</td>
+                    <td><i class="fa fa-arrow-right"></i></td>
+                    <td>Joon Lee, RN</td>
+                    <td><span class="message">Great, thanks so much!</span>
+                        <div style="margin-top:10px;">
+                            <a href="#">Dismiss conversation</a>
+                        </div>
+                    </td>
+                    <td>3:42pm</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="3">
+                        <select class="form-control input-sm">
+                            <option>To Bradly Doverspike</option>
+                            <option>To Joon Lee, RN</option>
+                            <option>To Big Bird</option>
+                            <option>To Oscar the Grouch</option>
+                        </select>
+                    </td>
+                    <td colspan="2">
+                        <input type="text" class="form-control input-sm" placeholder="Type message and hit enter to send...">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.3.4-dist\js\bootstrap.min.js"></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type='text/javascript' src='knockout-3.3.0.js'></script>
+        <style>
+            h1 { margin:5px 0px; }
+            table { border-collapse: collapse; }
+            th { text-align: left; }
+            tr { border-bottom: 1px solid #ccc; }
+            #nav { background-color: #eee; border-top: 1px solid #aaa;}
+            #nav a { display: inline-block; background-color; #ddd; padding: 10px; }
+            #nav a.selected { background-color: #ccc; }
+            #nav a:hover { background-color: #bbb; }
+            #actions { margin: 10px 0px; }
+            #header { margin-bottom: 10px; }
+            #filter { background-color: #ccc; padding: 4px; }
+            .taskNotification { display: inline-block; background-color: red; border-radius: 8px; padding: 0px 4px; color: white; font-weight: bold; }
+            
+            .overdue { background-color: #ff9999; }
+            .due { background-color: #ffffaa; }
+        </style>
+    </head>
+    
+    <body>
+        <div id="header">
+            <h1>Hi, Narath.</h1>
+            <div>
+                <a href="#">Integrated Practice of the Future</a> | <a href="#">View Profile</a> | <a href="#">Edit Profile</a>
+            </div>
+        </div>
+        
+        <div id="nav">
+            <a href="#">Acts & Updates</a>
+            <a href="patients.html">Patients</a>
+            <a href="#">Providers</a>
+            <a class="selected" href="tasks.html">Tasks</a>
+        </div>
+        <div id="filter">
+            <input type="text"  placeholder="Search for tasks..." />
+            <input type="checkbox" id="myPatients" data-bind="checked: showMyTasks"><label for="myPatients">Show only my tasks</label>
+            <input type="checkbox" id="urgentTasks" data-bind="checked: showUrgentTasks"><label for="urgentTasks" >Due/overdue tasks</label>
+            <div style="float:right;">
+                <button>Save Filter</button>
+                <select>
+                    <option>Load filter...</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="actions">
+            <button>New task</button>
+        </div>
+    
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th style="width:15px;"><input type="checkbox" /></th>
+                    <th style="width:50%">Description</th>
+                    <th>Assigned To</th>
+                    <th>Due Date</th>
+                    <th>Patient</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: filteredTasks">
+                <tr data-bind="attr: { class: urgency }">
+                    <td><input type="checkbox" /></td>
+                    <td data-bind="text: description"></td>
+                    <td data-bind="text: assignedTo"></td>
+                    <td data-bind="text: dueDate"></td>
+                    <td>
+                        <a href="#"><span data-bind="text: lastName"></span>, <span data-bind="text: firstName"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+ 
+        <script type="text/javascript">
+            function AppViewModel() {
+                var self = this;
+                self.tasks = ko.observableArray([
+                    { firstName: 'Andy', lastName: 'Anderson', myTask: true,  urgency: 'overdue', dueDate: '2015-01-01', description: "This is a task, a lovely task.", assignedTo: "Narath" },
+                    { firstName: 'Andy', lastName: 'Anderson', myTask: false, urgency: null,      dueDate: '2015-06-11', description: "This is a task, a lovely task.", assignedTo: "Bob" },
+                    { firstName: 'Andy', lastName: 'Anderson', myTask: true,  urgency: 'due',     dueDate: '2015-06-02', description: "This is a task, a lovely task.", assignedTo: "Narath" },
+                    { firstName: 'Andy', lastName: 'Anderson', myTask: false, urgency: null,      dueDate: '2015-06-11', description: "This is a task, a lovely task.", assignedTo: "Renae" },
+                    { firstName: 'Brian', lastName: 'Brower',  myTask: true,  urgency: null,      dueDate: '2015-06-11', description: "This is a task, a lovely task.", assignedTo: "Narath" },
+                    { firstName: 'Dave', lastName: 'Donnely',  myTask: false, urgency: null,      dueDate: '2015-06-11', description: "This is a task, a lovely task.", assignedTo: "Bob" },
+                    { firstName: 'Dave', lastName: 'Donnely',  myTask: false, urgency: null,      dueDate: '2015-12-31', description: "This is a task, a lovely task.", assignedTo: "Renae" },
+                ]);
+                self.showMyTasks = ko.observable(false);
+                self.showUrgentTasks = ko.observable(false);
+                self.filteredTasks = ko.computed(function() {
+                    var output = [];
+                    if (self.tasks())
+                    {
+                        for (var i = 0; i < self.tasks().length; i++)
+                        {
+                            if (
+                                (!self.showMyTasks() || (self.showMyTasks() && self.tasks()[i].myTask))
+                                &&
+                                (!self.showUrgentTasks() || (self.showUrgentTasks() && self.tasks()[i].urgency))
+                            )
+                            {
+                                output.push(self.tasks()[i]);
+                            }
+                        }
+                    }
+                    return output;
+                });
+            }
+            
+            ko.applyBindings(new AppViewModel());
+        </script>
+    
+    
+    </body>
+    
+</html>

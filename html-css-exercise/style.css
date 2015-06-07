@@ -1,0 +1,96 @@
+body
+{
+    padding: 10px;
+    font-size: 9px;
+}
+    body *
+    {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 600;
+    }
+
+.conversations
+{   
+    width: 100%;
+    color: #999999;
+    font-size: 12px;
+}
+.conversations .actbutton
+{
+    background-color: #e6e6e6;
+}
+.conversations .actbutton:hover
+{
+    background-color: #cccccc;
+}
+.conversations caption
+{
+    font-size: 15px;
+    border-width: 1px 1px 0px 1px;
+    border-style: dotted;
+    border-color: #cccccc;
+    padding: 5px 10px;
+    background-color: #eeeeee;
+    font-weight: bold;
+}
+.conversations a
+{
+    text-decoration: none;
+    color: #4B89C6;
+}
+.conversations a:hover
+{
+    text-decoration: underline;
+}
+
+.conversations .conversation-title-box
+{
+    border: 1px solid #e5e0c1;
+}
+.conversations .conversation-title-box .btn-group
+{
+    /* prevents carat wrapping - https://github.com/twbs/bootstrap/issues/9939 */
+    white-space: nowrap;
+    display: flex; 
+}
+.conversations .conversation-title
+{
+    font-size: 18px;
+    color: black;
+}
+.conversations .conversation-title-box td
+{
+    background-color: #fdfcf5;
+    vertical-align: middle;
+}
+.conversations .conversation-title-box:hover td
+{
+    background-color: #f7f6ef;
+}
+
+.conversations .message
+{
+    font-size: 15px;
+    color: #494949;
+}
+.conversations tr
+{
+    border: 1px solid #e3e3e3;
+}
+.conversations td
+{
+    padding: 5px 8px;
+    vertical-align: top;
+}
+.conversations tr:hover td
+{
+    background-color: #f5f5f5;
+}
+.conversations .conversation-title-box .label
+{
+    padding: 4px;
+    margin-left: 5px;
+    position: relative;
+    top: -4px;
+    text-transform: uppercase; 
+}
